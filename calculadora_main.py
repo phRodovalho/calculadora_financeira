@@ -17,7 +17,7 @@ def cls():  # limpando o terminal
 
 
 def menu_ini():
-    # cls()
+    cls()
     print("\n__________________ Calculadora financeira __________________\n")
     print(''' Escolha o que deseja calcular
         [ 1 ] Juros Simples
@@ -108,6 +108,7 @@ def main():
                 n = n/30  # convertendo o tempo meses
 
                 i = ((vf/vp)-1)/n
+                i = i*100
                 print(' A taxa de juros utilizada foi:{:.2f}%'.format(i))
                 not input('''\n Se necessario salve o valor antes de proseguir pois ele será apagado
                 \n Aperte enter para Continuar''')
@@ -175,7 +176,7 @@ def main():
                 i = i / 100  # convertendo a taxa para valor em porcentagem
                 n = n/30  # convertendo o tempo meses
                 vp = vf / ((1 + i) ** n)
-                print(' O valor presente é: {:.2f}'.format(vp))
+                print(' O valor presente é: {:.4f}'.format(vp))
                 not input('''\n Se necessario salve o valor antes de proseguir pois ele será apagado
         \n Aperte enter para Continuar''')
                 cls()
@@ -226,7 +227,7 @@ def main():
             print(''' Escolha o tipo de operaçao que deseja fazer
                 [ 1 ] Calcular Taxa efetiva                         i = ic/(1-ic*n)
                 [ 2 ] Calcular Taxa desconto comercial              ic = i/(1+i*n)
-                [ 3 ] Calcular Taxa anual               	      ia = ((1+ip)^n)-1
+                [ 3 ] Calcular Taxa anual               	        ia = ((1+ip)^n)-1
                 [ 4 ] Periodo m-a                                   i = ((1+i)^n)-1
                 [ 5 ] Periodo a-m                                   i = ((1+i)^1/n)-1
                 [ 9 ] Voltar
@@ -241,9 +242,10 @@ def main():
                     '\n A formula utilizada para esta conta é i = ic/(1-ic*n) \n')
                 ic = float(input(' Informe a Taxa comercial (ic): '))
                 n = float(input(' Informe o tempo em dias (n): '))
-
-                i = (ic/(1-ic*n))*100
-                print(' O resultado da taxa efetiva é: {:.2f}'.format(i))
+                ic = ic/100  # transformando em taxa unitaria
+                n = n/30  # transformando em meses
+                i = (ic/(1-(ic*n)))*100
+                print(' O resultado da taxa efetiva é: {:.4f}'.format(i))
                 not input('''\n Se necessario salve o valor antes de proseguir pois ele será apagado
         \n Aperte enter para Continuar''')
                 cls()
@@ -256,10 +258,11 @@ def main():
                     '\n A formula utilizada para esta conta é ic = i/(1+i*n) \n')
                 i = float(input(' Informe a taxa efetiva (i): '))
                 n = float(input(' Informe o tempo em dias (n): '))
-
+                i = i/100  # transformando em taxa unitaria
+                n = n/30  # transformando em meses
                 ic = (i/(1+i*n))*100
                 print(
-                    ' O resultado da taxa desconto comercial é: {:.2f}'.format(i))
+                    ' O resultado da taxa desconto comercial é: {:.2f}'.format(ic))
                 not input('''\n Se necessario salve o valor antes de proseguir pois ele será apagado
         \n Aperte enter para Continuar''')
                 cls()
@@ -269,12 +272,14 @@ def main():
                 print("_________________ Calcular Taxa anual _________________")
                 print(
                     '\n A formula utilizada para esta conta é  ia = ((1+ip)^n)-1 \n')
-                tp = float(input(' Informe a taxa (tp): '))
+
                 ip = float(input(' Informe a taxa (ip): '))
                 n = float(input(' Informe o valor do Tempo (n): '))
 
-                ia = ((1+ip) ^ n)-1
-                print(' O tempo utilizado foi:{:.2f}'.format(ia))
+                ip = ip/100
+                ia = ((1+ip) ** n)-1
+                ia = ia*100
+                print(' O tempo utilizado foi:{:.4f}'.format(ia))
                 not input('''\n Se necessario salve o valor antes de proseguir pois ele será apagado
         \n Aperte enter para Continuar''')
                 cls()
@@ -300,9 +305,10 @@ def main():
                     '\n A formula utilizada para esta conta é  i = ((1+i)^1/n)-1 \n')
                 i = float(input(' Informe o valor (i) '))
                 n = float(input(' Informe o valor (n): '))
-
-                i = ((1+i)**1/n)-1
-                print(' O tempo utilizado foi:{:.2f}'.format(i))
+                i = i/100
+                i = ((1+i)**(1/n))-1
+                i = i*100
+                print(' O tempo utilizado foi:{:.4f}'.format(i))
                 not input('''\n Se necessario salve o valor antes de proseguir pois ele será apagado
         \n Aperte enter para Continuar''')
                 cls()

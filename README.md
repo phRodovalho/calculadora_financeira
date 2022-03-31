@@ -23,7 +23,12 @@ Foi implementado:
     * Periodo m-a                       i = ((1+i)^n)-1
     * Periodo a-m                       i = ((1+i)^1/n)-1
 
-## Ainda será implementado:
-    * Amortização
-    * VPL
-     
+## Valor Present Líquido VPL
+    * Investimento Inicial = Somatório(FC / (1+k)^j)
+    * VPL = (((FC / (1 + k) ^ j) + (VR / (1 + k) ^ j)) - inv)
+
+## Amortização - Financiamento SAC,
+    * Amort = VP/n
+    * Juros = (VP/n) * ((n - t + 1)*i)
+    * PMT = (VP/n) * (1 + (n - t + 1 )*i)
+    * SD = VP - (Amort * t)

@@ -390,7 +390,7 @@ def main():
                 [ 1 ] Calcular a Amortização                  Amort = VP/n
                 [ 2 ] Calcular os Juros                       J = (VP/n) * ((n - t + 1)*i)
                 [ 3 ] Calcular o PMT                          PMT = (VP/n) * (1 + (n - t + 1 )*i)
-                [ 4 ] Calcular o Saldo Devedor                SD = VP - (Amort * t )
+                [ 4 ] Calcular o Saldo Devedor                SD = VP - (Amort * t)
                 [ 9 ] Voltar
                 [ 0 ] Sair''')
 

@@ -325,50 +325,54 @@ def main():
         elif o == 4:  # Valor Presente Líquido - VPL
             print("_________________ Valor Presente Líquido - VPL _________________\n")
             print("Calcular o investimento inicial")
-            print(
-                '\n A formula utilizada é Inv = Somatório(FC / (1+k)^j) \n')
+            print('\n A formula utilizada é FC = Somatório(FC / (1+k)^j) \n')
             n = int(
                 input("Informe a quantidade de períodos que serão analisados (n): "))
-            j = int(input("Informe o número do período analisado (J): "))
+            #j = int(input("Informe o número do período analisado (J): "))
             k = float(input("Informe o valor do custo de capital (K): "))
-            fc = float(
-                input("Informe o valor do fluxo de caixa no período (FC): "))
-
+            k = k / 100  # convertendo a taxa para valor em porcentagem
             cls()
             inv = 0.0
             print("Somatório de períodos...")
-            while(n != 0):
-                aux = (1 + k)**j
+            a = 1
+            while(a != n+1):
+                fc = float(
+                    input("Informe o valor do fluxo de caixa no período (FC): "))
+                aux = (1 + k)**a
+                print("\naux k: ", aux, k)
                 inv += fc/aux
-                print(f"Período {n}, Resultado: {inv}\n".format(n=n, inv=inv))
-                n -= 1
+                print("\naux = ", inv)
+                print(f"Período {a}, Resultado: {inv}\n".format(n=n, inv=inv))
+                a += 1
             not input('''Aperte enter para Continuar''')
             cls()
 
             print("Resultado do Investimento inicial = ", inv)
+            fc = inv
+
             print(
-                "\nCalcular o VPL, Fórmula (((FC / (1 + k) ^ j) + (VR / (1 + k) ^ j)) - inv)")
-            n = int(
-                input("Informe a quantidade de períodos que serão analisados (n): "))
-            j = 1
-            k = float(input("Informe o valor do custo de capital (K): "))
-            fc = float(
-                input("Informe o valor do fluxo de caixa no período (FC): "))
+                "\nCalcular o VPL, Fórmula (((FC) + (VR / (1 + k) ^ t)) - inv)")
+            inv = int(
+                input("Informe o valor do Inv: "))
             vr = float(input("Informe o valor residual do projeto (VR): "))
-            print("O valor do investimento inicial já calculado é de: ", inv)
+
+            t = int(input("Informe o tempo: "))
+
+            k = float(input("Informe o valor do custo de capital (K): "))
+            k = k/100
+
+            print("O valor do investimento inicial já calculado é de: ", fc)
 
             not input('''Aperte enter para Continuar''')
             cls()
             vpl = 0.0
+            a = 1
             print("Somatório de períodos...")
-            while(n != 0):  # (((FC / (1 + k) ^ j) + (VR / (1 + k) ^ j)) - inv)
-                # (1 + k) ^ j
-                kj = (1+k)**j
+            # (((FC) + (VR / (1 + k) ^ t)) - inv)
 
-                # Resolvendo as frações
-                vpl = (((fc / kj) + (vr / kj)) - inv)
-                print("Período {n}, Resultado: {vpl}\n" .format(n=n, vpl=vpl))
-                n -= 1
+            result = (((fc) + (vr / (1 + k)**t)) - inv)
+
+            print("\nResultado VPL = ", result)
 
             not input('''Aperte enter para Continuar''')
             cls()
@@ -387,10 +391,10 @@ def main():
         elif o == 5:  # Amortização - Financiamento SAC
             print("_________________ Amortização - Financiamento SAC _________________")
             print(''' Escolha o tipo de operaçao que deseja fazer
-                [ 1 ] Calcular a Amortização                  Amort = VP/n
-                [ 2 ] Calcular os Juros                       J = (VP/n) * ((n - t + 1)*i)
-                [ 3 ] Calcular o PMT                          PMT = (VP/n) * (1 + (n - t + 1 )*i)
-                [ 4 ] Calcular o Saldo Devedor                SD = VP - (Amort * t)
+                [ 1 ] Calcular a Amortização                  Amort = PV/n
+                [ 2 ] Calcular os Juros                       J = (PV/n) * ((n - t + 1)*i)
+                [ 3 ] Calcular o PMT                          PMT = (PV/n) * (1 + (n - t + 1 )*i)
+                [ 4 ] Calcular o Saldo Devedor                SD = PV - (Amort * t)
                 [ 9 ] Voltar
                 [ 0 ] Sair''')
 
@@ -419,7 +423,7 @@ def main():
                 n = float(input(' Informe o tempo em dias (n): '))
                 t = float(input(' Informe o valor de (t): '))
                 i = float(input(' Informe a taxa (i): '))
-
+                t = t/30
                 i = i/100  # transformando em taxa unitaria
                 n = n/30  # transformando em meses
 
@@ -438,7 +442,7 @@ def main():
                 n = float(input(' Informe o tempo em dias (n): '))
                 t = float(input(' Informe o valor de (t): '))
                 i = float(input(' Informe a taxa (i): '))
-
+                t = t/30
                 i = i/100  # transformando em taxa unitaria
                 n = n/30  # transformando em meses
 
@@ -463,6 +467,8 @@ def main():
 
                 vp = float(input(' Informe o Valor Presente (VP): '))
                 t = float(input(' Informe o valor de (t): '))
+                t = t/30
+                print("\n amort", amort * t)
 
                 sd = vp - (amort * t)
                 print(' O resultado do Saldo Devedor é: {:.4f}'.format(sd))
